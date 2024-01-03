@@ -8,7 +8,14 @@ package qlthitracnghiem;
  *
  * @author ADMIN
  */
+import DAO.DAOCauHoi;
+import DAO.DAODeThi;
 import java.sql.Connection;
+import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.ListModel;
+import model.DeThi;
+
 public class FrameHome extends javax.swing.JFrame {
 
     /**
@@ -16,10 +23,12 @@ public class FrameHome extends javax.swing.JFrame {
      */
     public FrameHome() {
         initComponents();
-        
-        
-        
-        
+        DAODeThi dt = new DAODeThi();
+        ArrayList<DeThi> deThis = dt.selectAll();
+        for (DeThi deThi : deThis) {
+            cboDeThi.addItem(deThi.getMaDe());
+        }
+
     }
 
     /**
@@ -33,7 +42,6 @@ public class FrameHome extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbTenSV = new javax.swing.JLabel();
-        btnDoiMatKhau = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -56,26 +64,24 @@ public class FrameHome extends javax.swing.JFrame {
         lbTenSV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbTenSV.setText("jLabel1");
 
-        btnDoiMatKhau.setBackground(new java.awt.Color(167, 217, 245));
-        btnDoiMatKhau.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        btnDoiMatKhau.setText("Đổi mật khẩu");
-        btnDoiMatKhau.setPreferredSize(new java.awt.Dimension(149, 39));
-
         btnDangXuat.setBackground(new java.awt.Color(167, 217, 245));
         btnDangXuat.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnDangXuat.setText("Đăng xuất");
         btnDangXuat.setPreferredSize(new java.awt.Dimension(149, 39));
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(76, 76, 76)
                 .addComponent(lbTenSV, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addGap(160, 160, 160)
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -85,7 +91,6 @@ public class FrameHome extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTenSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDoiMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
@@ -96,7 +101,11 @@ public class FrameHome extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin đề thi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
         cboDeThi.setBackground(new java.awt.Color(255, 255, 255));
-        cboDeThi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboDeThi.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboDeThiItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Chọn đề thi");
@@ -105,7 +114,7 @@ public class FrameHome extends javax.swing.JFrame {
         lbTongCauHoi.setText("Tổng số câu hỏi");
 
         lbThangDiem.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lbThangDiem.setText("Thang điểm");
+        lbThangDiem.setText("Thang điểm: 10");
 
         lbThoiGian.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbThoiGian.setText("Thời gian");
@@ -191,9 +200,25 @@ public class FrameHome extends javax.swing.JFrame {
 
     private void btnLamBaiThiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamBaiThiActionPerformed
         // TODO add your handling code here:
-        Connection connection = JDBCUtil.getConnection();
-        System.out.println(connection);
+        
+        FrameLamBaiThi lamBaiThi = new FrameLamBaiThi(cboDeThi.getSelectedItem().toString());
+        lamBaiThi.setVisible(true);
     }//GEN-LAST:event_btnLamBaiThiActionPerformed
+
+    private void cboDeThiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboDeThiItemStateChanged
+        DAOCauHoi daoCauHoi = new DAOCauHoi();
+        DAODeThi daoDeThi = new DAODeThi();
+
+        int TongCauHoi = daoCauHoi.countCauHoiByIdDe(cboDeThi.getSelectedItem().toString());
+        lbTongCauHoi.setText("Tổng số câu hỏi: " + TongCauHoi);
+        DeThi deThi = daoDeThi.selectById(cboDeThi.getSelectedItem().toString());
+        lbThoiGian.setText("Thời gian làm bài: "+deThi.getThoiGianLamBai());
+    }//GEN-LAST:event_cboDeThiItemStateChanged
+
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,7 +257,6 @@ public class FrameHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
-    private javax.swing.JButton btnDoiMatKhau;
     private javax.swing.JButton btnLamBaiThi;
     private javax.swing.JComboBox<String> cboDeThi;
     private javax.swing.JLabel jLabel2;

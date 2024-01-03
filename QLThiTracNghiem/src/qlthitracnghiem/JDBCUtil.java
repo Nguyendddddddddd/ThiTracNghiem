@@ -29,4 +29,13 @@ public class JDBCUtil {
         }
         return c;
     }
+    
+    public static void closeConnection(Connection c){
+        try{
+            if(c!=null)
+                c.close();
+        }catch(SQLException ex){
+            Logger.getLogger(JDBCUtil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
