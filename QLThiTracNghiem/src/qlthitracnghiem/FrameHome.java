@@ -10,6 +10,7 @@ package qlthitracnghiem;
  */
 import DAO.DAOCauHoi;
 import DAO.DAODeThi;
+import PHAN_MEM.FormDangNhap;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
@@ -41,7 +42,6 @@ public class FrameHome extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lbTenSV = new javax.swing.JLabel();
         btnDangXuat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -52,7 +52,7 @@ public class FrameHome extends javax.swing.JFrame {
         lbThoiGian = new javax.swing.JLabel();
         btnLamBaiThi = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(167, 217, 245));
 
         jPanel1.setBackground(new java.awt.Color(240, 251, 255));
@@ -60,9 +60,6 @@ public class FrameHome extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(167, 217, 245));
         jPanel1.setToolTipText("");
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 88));
-
-        lbTenSV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        lbTenSV.setText("jLabel1");
 
         btnDangXuat.setBackground(new java.awt.Color(167, 217, 245));
         btnDangXuat.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
@@ -79,20 +76,16 @@ public class FrameHome extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(lbTenSV, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(160, 160, 160)
+                .addContainerGap()
                 .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbTenSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(btnDangXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(240, 251, 255));
@@ -203,6 +196,7 @@ public class FrameHome extends javax.swing.JFrame {
         
         FrameLamBaiThi lamBaiThi = new FrameLamBaiThi(cboDeThi.getSelectedItem().toString());
         lamBaiThi.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLamBaiThiActionPerformed
 
     private void cboDeThiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboDeThiItemStateChanged
@@ -216,8 +210,9 @@ public class FrameHome extends javax.swing.JFrame {
     }//GEN-LAST:event_cboDeThiItemStateChanged
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
-        // TODO add your handling code here:
         this.dispose();
+        FormDangNhap FormDangNhap = new FormDangNhap();
+        FormDangNhap.setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
@@ -263,7 +258,6 @@ public class FrameHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel lbTenSV;
     private javax.swing.JLabel lbThangDiem;
     private javax.swing.JLabel lbThoiGian;
     private javax.swing.JLabel lbTongCauHoi;
